@@ -261,7 +261,6 @@ abstract class BaseMetatagManager extends Component
         return Yii::createObject(array_merge(
             $this->itemConfig,
             [
-                'class' => $this->itemClass,
                 'url' => ArrayHelper::getValue($row, 'url'),
                 'title' => ArrayHelper::getValue($row, 'title'),
                 'h1' => ArrayHelper::getValue($row, 'h1'),
