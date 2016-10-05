@@ -3,6 +3,7 @@
 namespace maybeworks\seo;
 
 use Yii;
+use yii\base\ActionEvent;
 use yii\base\Event;
 use yii\base\Component;
 use yii\helpers\ArrayHelper;
@@ -51,9 +52,9 @@ abstract class BaseMetatagManager extends Component
 
     /**
      * Application after action event for replace H1 in page
-     * @param Event $event
+     * @param ActionEvent $event
      */
-    public function onAfterAction(Event $event)
+    public function onAfterAction(ActionEvent $event)
     {
         if ($h1 = $this->getH1()) {
             $event->result = preg_replace(

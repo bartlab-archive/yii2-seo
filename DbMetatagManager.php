@@ -56,9 +56,14 @@ class DbMetatagManager extends BaseMetatagManager
     public $itemTable = '{{%metatag}}';
 
     /**
-     * @var string column name for ordering metatag
+     * @var string column name for ordering items
      */
     public $orderColumn = 'ordering';
+
+    /**
+     * @var string column name for status items
+     */
+    public $statusColumn = 'status';
 
     /**
      * @inheritdoc
@@ -78,7 +83,7 @@ class DbMetatagManager extends BaseMetatagManager
 
         $query = (new Query())
             ->from($this->itemTable)
-            ->where(['status' => self::STATUS_ACTIVE])
+            ->where([$this->statusColumn => self::STATUS_ACTIVE])
             ->orderBy([$this->orderColumn => 'ASC']);
 
         $url = Url::current();

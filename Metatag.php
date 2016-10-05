@@ -1,7 +1,6 @@
 <?php
 namespace maybeworks\seo;
 
-use Yii;
 use yii\base\Object;
 
 class Metatag extends Object

@@ -7,6 +7,11 @@ use yii\db\Migration;
 class m150621_163421_metatag_init extends Migration
 {
 
+    /**
+     * Get metatag manager instance
+     * @return DbMetatagManager|object
+     * @throws InvalidConfigException
+     */
     protected function getMetatagManager()
     {
         $metatagManager = Yii::$app->get('metatagManager');
@@ -16,17 +21,20 @@ class m150621_163421_metatag_init extends Migration
         return $metatagManager;
     }
 
-    public function up()
+    protected function getTableOptions()
     {
-        /** @var DbMetatagManager $metatagManager */
-        $metatagManager = $this->getMetatagManager();
-        $this->db = $metatagManager->db;
-
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
+        return $tableOptions;
+    }
+
+    public function up()
+    {
+        $metatagManager = $this->getMetatagManager();
+        $this->db = $metatagManager->db;
 
         $this->createTable($metatagManager->itemTable, [
             'id' => $this->primaryKey(),
@@ -38,7 +46,7 @@ class m150621_163421_metatag_init extends Migration
             'custom' => $this->text(),
             'ordering' => $this->smallInteger(),
             'status' => $this->smallInteger()->notNull()->defaultValue($metatagManager::STATUS_ACTIVE),
-        ], $tableOptions);
+        ], $this->getTableOptions());
 
         $this->createIndex('metatag-status', $metatagManager->itemTable, 'status');
     }
