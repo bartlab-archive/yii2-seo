@@ -1,9 +1,9 @@
 <?php
 namespace maybeworks\seo;
 
-use yii\base\Object;
+use yii\base\BaseObject;
 
-class Metatag extends Object
+class Metatag extends BaseObject
 {
     public $url;
     public $title;
