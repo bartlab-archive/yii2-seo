@@ -1,9 +1,9 @@
 <?php
 namespace maybeworks\seo;
 
-use yii\base\Object;
+use yii\base\BaseObject;
 
-class Redirect extends Object
+class Redirect extends BaseObject
 {
     public $rule;
     public $to;
